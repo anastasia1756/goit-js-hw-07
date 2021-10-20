@@ -1,8 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-
-console.log(createImageGallery(galleryItems));
 const imagesContainer = document.querySelector('.gallery');
 const imagesMarkup = createImageGallery(galleryItems);
 
@@ -32,15 +30,27 @@ function createImageGallery(images) {
 }
 
 function onImageClick(event) {
-    event.preventDefault();
-    // console.log(event.target.nodeName)
-    if (!event.target.classList.contains('gallery__image')) {
+  event.preventDefault();
+  const isGalleryImageEl = event.target.classList.contains('gallery__image');
+    if (!isGalleryImageEl) {
         return;
     }
-    console.log(event.target);
-    const imageEl = document.querySelector(".gallery__image");
-    const largeImageEl = imageEl.dataset.source;
-    console.log(largeImageEl); //неправильно?только первый берется
+    
+    const imageEl = document.querySelectorAll(".gallery__image");
+    const modal = basicLightbox.create(`
+    <div class="modal">
+    <img src="${event.target.dataset.source}" width="1280" height="600">
+    </div>
+`
+    )
+    modal.show();
 
-
+if(modal) {
+  document.addEventListener("keydown", event => {
+    if(event.code === 'NumpadEnter') {
+      modal.close()
+    }
+  });
 }
+}
+
