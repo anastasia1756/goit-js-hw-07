@@ -6,8 +6,6 @@ const imagesMarkup = createImageGallery(galleryItems);
 
 imagesContainer.insertAdjacentHTML('beforeend', imagesMarkup);
 
-imagesContainer.addEventListener('click', onImageContainerClick);
-
 function createImageGallery(images) {
     return galleryItems.map(({preview, original, description}) => {
           return `<li class="gallery__list"><a class="gallery__item" href="${original}">
@@ -15,17 +13,9 @@ function createImageGallery(images) {
     </a></li>`;
       }).join('');
   }
+let lightbox = new SimpleLightbox('.gallery a', {captionsData: 'alt', captionDelay: 250});
 
-function onImageContainerClick (event) {
-    event.preventDefault();
-    const isGalleryImageEl = event.target.classList.contains('gallery__image');
-    if(!isGalleryImageEl) {
-        return;
-    }
-    
-    var lightbox = new SimpleLightbox('.gallery a', {captionsData: 'alt', captionDelay: 250});
+createImageGallery()
 
-    createImageGallery()
-}
   
 

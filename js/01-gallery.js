@@ -36,11 +36,8 @@ function onImageClick(event) {
         return;
     }
     
-    const imageEl = document.querySelectorAll(".gallery__image");
     const modal = basicLightbox.create(`
-    <div class="modal">
-    <img src="${event.target.dataset.source}" width="1280" height="600">
-    </div>
+    <img src="${event.target.dataset.source}" width="1280">
 `
     )
     modal.show();
@@ -50,7 +47,7 @@ if(modal) {
     if(event.code === 'NumpadEnter') {
       modal.close()
     }
-  });
+  }, { once: true });
 }
 }
 
